@@ -1,6 +1,6 @@
 const User = require('../Models/User');
 
-const getUserProfile = async (req, res) => {
+const getUserProfile = async (req, res) => { 
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.status(200).json(user);
@@ -12,8 +12,6 @@ const getUserProfile = async (req, res) => {
 const updateUserProfile = async (req, res) => {
     try {
       const userId = req.params.userId;
-  
-      console.log(userId)
       // Check if the user is trying to update their own profile
       if (userId !== req.user.id) {
         return res.status(403).json({ message: 'Forbidden. You are not authorized to update this profile.' });
