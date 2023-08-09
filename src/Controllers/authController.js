@@ -17,8 +17,12 @@ const register = async (req, res) => {
   try {
     const { firstName, lastName, email, username, password } = req.body;
 
+    // Convert email and username to lowercase
+    const lowerCaseEmail = email.toLowerCase();
+    const lowerCaseUsername = username.toLowerCase();
+
     // Check if email/username already exists
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    const existingUser = await User.findOne({ $or: [{ email: lowerCaseEmail }, { username: lowerCaseUsername }] });
     if (existingUser) {
       return res.status(409).json({ message: 'Email or username already taken' });
     }
@@ -32,8 +36,8 @@ const register = async (req, res) => {
     const user = new User({
       firstName,
       lastName,
-      email,
-      username,
+      email: lowerCaseEmail,
+      username: lowerCaseUsername,
       password: hashedPassword,
       verificationCode,
     });
@@ -111,7 +115,7 @@ const login = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '36h' });
 
     res.status(200).json({ token });
   } catch (error) {

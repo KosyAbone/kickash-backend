@@ -13,6 +13,7 @@ const updateUserProfile = async (req, res) => {
     try {
       const userId = req.params.userId;
   
+      console.log(userId)
       // Check if the user is trying to update their own profile
       if (userId !== req.user.id) {
         return res.status(403).json({ message: 'Forbidden. You are not authorized to update this profile.' });

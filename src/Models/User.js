@@ -11,8 +11,8 @@ const userSchema = new mongoose.Schema({
   age: Number,
   profilePicture: String,
   dateJoined: { type: Date, default: Date.now },
-  verificationCode: String, // Add this field
-  isVerified: { type: Boolean, default: false }, // Add this field
+  verificationCode: String,
+  isVerified: { type: Boolean, default: false },
 });
 
 const User = mongoose.model('User', userSchema);
