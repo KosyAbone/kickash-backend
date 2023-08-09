@@ -1,10 +1,17 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const sgMail = require('@sendgrid/mail');
-const User = require('../Models/User')
+const nodemailer = require('nodemailer');
+const User = require('../Models/User');
 require('dotenv').config();
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
 
 const register = async (req, res) => {
   try {
@@ -35,20 +42,22 @@ const register = async (req, res) => {
     await user.save();
 
     // Send the verification code to the user's email
-    const msg = {
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
       to: user.email,
-      from: 'your_verified_email@example.com', // Use a verified email from SendGrid
       subject: 'Email Verification Code',
       text: `Your verification code is: ${verificationCode}`,
     };
 
-    await sgMail.send(msg);
+    await transporter.sendMail(mailOptions);
 
     res.status(201).json({ message: 'User registered successfully. Please check your email for the verification code.' });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 
 const verifyEmail = async (req, res) => {
   try {
@@ -66,21 +75,24 @@ const verifyEmail = async (req, res) => {
     user.isVerified = true; // Mark the user as verified
     await user.save();
 
-    // Send a confirmation email using SendGrid
-    const confirmationMsg = {
+    // Send a confirmation email using Nodemailer
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
       to: user.email,
-      from: 'your_verified_email@example.com', // Use a verified email from SendGrid
       subject: 'Email Verification Successful',
       text: 'Your email has been successfully verified.',
     };
 
-    await sgMail.send(confirmationMsg);
+    await transporter.sendMail(mailOptions);
 
     res.status(200).json({ message: 'Email verified successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
+
 
 const login = async (req, res) => {
   try {
