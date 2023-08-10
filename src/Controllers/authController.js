@@ -27,6 +27,10 @@ const register = async (req, res) => {
       return res.status(409).json({ message: 'Email or username already taken' });
     }
 
+    if(!(firstName && lastName && email && username && password)){
+      return res.status(409).json({message: "Some fields are empty"})
+    }
+
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -55,7 +59,7 @@ const register = async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res.status(201).json({ message: 'User registered successfully. Please check your email for the verification code.' });
+    res.status(200).json({ message: 'User registered successfully. Please check your email for the verification code.' });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
