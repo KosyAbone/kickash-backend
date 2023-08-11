@@ -4,7 +4,7 @@ const express = require('express');
 const authRoutes = require('./src/routes/authRoutes');
 const profileRoutes = require('./src/routes/profileRoutes');
 const articleRoutes = require('./src/routes/articleRoutes');
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.json());
@@ -20,7 +20,7 @@ app.use('/profile', profileRoutes);
 app.use('/articles', articleRoutes);
 
 try{
-    app.listen(PORT, () => {
+    app.listen(port, () => {
     console.log(`Server is running on port ${PORT}`);
     })
 }catch(error) {
