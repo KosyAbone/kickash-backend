@@ -59,9 +59,9 @@ const register = async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({ message: 'User registered successfully. Please check your email for the verification code.' });
+    res.status(200).json({ message: 'User registered successfully. Please check your email for the verification code.', success: true });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', success: false });
   }
 };
 
@@ -93,9 +93,9 @@ const verifyEmail = async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({ message: 'Email verified successfully' });
+    res.status(200).json({ message: 'Email verified successfully', success: true });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', success: false });
   }
 };
 
@@ -121,9 +121,9 @@ const login = async (req, res) => {
     // Generate JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '36h' });
 
-    res.status(200).json({ token });
+    res.status(200).json({ token, success: true });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', success: false });
   }
 };
 

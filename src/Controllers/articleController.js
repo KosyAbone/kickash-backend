@@ -4,9 +4,9 @@ const Article = require('../Models/Articles');
 const getAllArticles = async (req, res) => {
   try {
     const articles = await Article.find();
-    res.status(200).json(articles);
+    res.status(200).json({articles, success: true});
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', success: false });
   }
 };
 
@@ -17,9 +17,9 @@ const getArticleById = async (req, res) => {
     if (!article) {
       return res.status(404).json({ message: 'Article not found' });
     }
-    res.status(200).json(article);
+    res.status(200).json({article, success: true});
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', success: false });
   }
 };
 
