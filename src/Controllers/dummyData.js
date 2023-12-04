@@ -1,6 +1,6 @@
 const DailyLog = require('../Models/DailyLogs');
-require('dotenv').config();
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const sampleData = [
   {
@@ -21,7 +21,7 @@ const sampleData = [
   // Add more sample data as needed
 ];
 
-mongoose.connect('mongodb+srv://byteforce:Byteforce77mdev@kickashcluster.ec6taqa.mongodb.net/', {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
