@@ -1,18 +1,64 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: { type: String, unique: true },
-  username: { type: String, unique: true },
-  password: String,
-  gender: String,
-  dateOfBirth: Date,
-  age: Number,
-  profilePicture: String,
-  dateJoined: { type: Date, default: Date.now },
-  verificationCode: String,
-  isVerified: { type: Boolean, default: false },
+  firstName: {
+    type: String,
+    trim: true,
+    required: [true, 'Please enter your first name'],
+  },
+  lastName: {
+    type: String,
+    trim: true,
+    required: [true, 'Please enter your last name'],
+  },
+  email: { 
+    type: String, 
+    unique: true,
+    trim: true,
+    lowercase: true,
+    required: [true, 'Please enter your email address'],
+  },
+  username: { 
+    type: String, 
+    unique: true,
+    trim: true,
+    lowercase: true,
+    required: [true, 'Please choose a username'],
+  },
+  password: {
+    type: String,
+    required: [true, 'Please choose a password'],
+  },
+  verificationCode: {
+    type: String
+  },
+  isVerified: { 
+    type: Boolean, 
+    default: false 
+  },
+  gender: {
+    type: String
+  },
+  dateOfBirth: {
+    type: Date
+  },
+  SmokingAge: {
+    type: Number
+  },
+  profilePicture: {
+    url: {
+      type: String,
+      default: null,
+    },
+    publicId: {
+      type: String,
+      default: null,
+    },
+  },
+  dateJoined: { 
+    type: Date, 
+    default: Date.now 
+  },
 });
 
 const User = mongoose.model('User', userSchema);
