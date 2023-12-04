@@ -4,17 +4,17 @@ require('dotenv').config();
 
 const sampleData = [
   {
-    userId: '656e40b36e40150d008d0f70', // Replace with actual user ID
+    userId: '656e5f47b4657889b9025abd', // Replace with actual user ID
     date: new Date('2023-11-01'), // Replace with desired dates
     totalCigars: 5,
   },
   {
-    userId: '656e40b36e40150d008d0f70',
+    userId: '656e5f47b4657889b9025abd',
     date: new Date('2023-11-12'),
     totalCigars: 7,
   },
   {
-    userId: '656e40b36e40150d008d0f70',
+    userId: '656e5f47b4657889b9025abd',
     date: new Date('2023-11-20'),
     totalCigars: 2,
   },

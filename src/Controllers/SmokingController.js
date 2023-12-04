@@ -28,14 +28,17 @@ const incrementCigarCounter = async (req, res) => {
 const getSmokingHistory = async (req, res) => {
     try {
       const userId = req.user.id;
-      const { fromDate, toDate } = req.query;
+      //const { fromDate, toDate } = req.body;
   
-      const history = await DailyLog.find() // Get all available history
-      
+      //Get all the logs for the user without date filter
+      const history = await DailyLog.find({
+        userId: userId,
+      }).sort({ date: 'asc' });
+
       // const history = await DailyLog.find({
       //   userId: userId,
       //   date: { $gte: fromDate, $lte: toDate },
-      // }).sort({ date: 'asc' }); // Get history within a date range
+      // }).sort({ date: 'asc' });
   
       res.status(200).json({ history });
     } catch (error) {
