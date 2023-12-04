@@ -4,6 +4,7 @@ const express = require('express');
 const authRoutes = require('./src/routes/authRoutes');
 const profileRoutes = require('./src/routes/profileRoutes');
 const articleRoutes = require('./src/routes/articleRoutes');
+const cigarRoutes = require('./src/routes/cigarRoutes');
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
+app.use('/smoke', cigarRoutes);
 app.use('/articles', articleRoutes);
 
 try{

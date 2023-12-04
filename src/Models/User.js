@@ -15,14 +15,12 @@ const userSchema = new mongoose.Schema({
     type: String, 
     unique: true,
     trim: true,
-    lowercase: true,
     required: [true, 'Please enter your email address'],
   },
   username: { 
     type: String, 
     unique: true,
     trim: true,
-    lowercase: true,
     required: [true, 'Please choose a username'],
   },
   password: {
@@ -54,6 +52,11 @@ const userSchema = new mongoose.Schema({
       type: String,
       default: null,
     },
+  },
+  noOfCigarPerDay: {
+    type: Map,
+    of: Number,
+    default: {},
   },
   dateJoined: { 
     type: Date, 
