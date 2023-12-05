@@ -6,6 +6,7 @@ const articleSchema = new mongoose.Schema({
   datePosted: { type: Date, default: Date.now },
   author: String,
   posterUrl: String,
+  videoUrl: String,
 });
 
 const Article = mongoose.model('Article', articleSchema);
