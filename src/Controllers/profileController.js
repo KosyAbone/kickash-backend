@@ -38,13 +38,14 @@ const updateUserProfile = async (req, res) => {
 
 // Upload profile picture for a user
 const uploadProfilePicture = async (req, res) => {
+  let profileImageUrl = '';
   try {
     const userId = req.params.userId;
     if (userId !== req.user.id) {
       return res.status(403).json({ message: 'Forbidden. You are not authorized to update this profile.' });
     }
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('-password');
 
     // If a file is uploaded, upload it to Cloudinary and update user profile picture
     if (req.file) {
@@ -59,9 +60,9 @@ const uploadProfilePicture = async (req, res) => {
         publicId: cloudinaryResult.public_id,
       };
     }
-
     await user.save();
-    res.status(200).json({ message: 'Profile picture updated successfully', success: true });
+    profileImageUrl = user.profilePicture.url;
+    res.status(200).json({ message: 'Profile picture updated successfully', profileImageUrl, success: true });
   } catch (error) {
     return res.status(500).json({ message: 'Internal server error: ' + error.message, success: false });
   }
