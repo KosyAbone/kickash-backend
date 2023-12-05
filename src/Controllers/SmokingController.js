@@ -33,7 +33,7 @@ const getSmokingHistory = async (req, res) => {
       //Get all the logs for the user without date filter
       const history = await DailyLog.find({
         userId: userId,
-      }).sort({ date: 'asc' });
+      }).sort({ date: 'desc' });
 
       // const history = await DailyLog.find({
       //   userId: userId,
