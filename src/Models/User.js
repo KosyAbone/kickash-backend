@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
   dateOfBirth: {
     type: Date
   },
-  SmokingAge: {
+  smokingAge: {
     type: String
   },
   profilePicture: {
