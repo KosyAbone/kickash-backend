@@ -21,7 +21,7 @@ const incrementCigarCounter = async (req, res) => {
 
     res.status(200).json({ message: 'Cigar count incremented successfully', currentCigarCount, success: true });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', success: false });
+    res.status(500).json({ message: 'Internal server error: ' + error.message, success: false });
   }
 };
 
