@@ -57,7 +57,12 @@ const userSchema = new mongoose.Schema({
   noOfCigarPerDay: {
     type: Map,
     of: Number,
-    default: {},
+    default: function () {
+      const map = new Map();
+      const today = new Date().toISOString().split('T')[0];
+      map.set(today, 0); // Set the default value for the current day to 0
+      return map;
+    },
   },
   dateJoined: { 
     type: Date, 
