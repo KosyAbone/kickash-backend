@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     type: Date
   },
   SmokingAge: {
-    type: Number
+    type: String
   },
   profilePicture: {
     url: {
