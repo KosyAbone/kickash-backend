@@ -75,9 +75,9 @@ const verifyEmail = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // if (req.body.verificationCode !== user.verificationCode) {
-    //   return res.status(400).json({ message: 'Invalid verification code' });
-    // }
+    if (req.body.verificationCode !== user.verificationCode) {
+      return res.status(400).json({ message: 'Invalid verification code' });
+    }
 
     user.verificationCode = null; // Clear the verification code
     user.isVerified = true; // Mark the user as verified
