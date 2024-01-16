@@ -16,28 +16,28 @@ const getUserProfile = async (req, res) => {
 };
 
 // Update user profile details
-// const updateUserProfile = async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     if (userId !== req.user.id) {
-//       return res.status(403).json({ message: 'Forbidden. You are not authorized to update this profile.' });
-//     }
+const updateUserProfile = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    if (userId !== req.user.id) {
+      return res.status(403).json({ message: 'Forbidden. You are not authorized to update this profile.' });
+    }
 
-//     // Find user by ID and update with data from req.body
-//     const updatedUser = await User.findByIdAndUpdate(
-//       userId,
-//       { $set: req.body }, // Use $set to update only specified fields from req.body
-//       { new: true } // To return the updated document
-//     ).select('-password'); // To exclude the password field from the returned document
+    // Find user by ID and update with data from req.body
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: req.body }, // Use $set to update only specified fields from req.body
+      { new: true } // To return the updated document
+    ).select('-password'); // To exclude the password field from the returned document
 
-//     if (!updatedUser) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-//     res.status(200).json({ message: 'Profile updated successfully', success: true, user: updatedUser });
-//   } catch (error) {
-//     return res.status(500).json({ message: 'Internal server error: ' + error.message, success: false });
-//   }
+    res.status(200).json({ message: 'Profile updated successfully', success: true, user: updatedUser });
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal server error: ' + error.message, success: false });
+  }
 };
 
 // Upload profile picture for a user
