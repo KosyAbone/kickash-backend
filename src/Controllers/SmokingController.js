@@ -35,10 +35,10 @@ const getSmokingHistory = async (req, res) => {
         userId: userId,
       }).sort({ date: 'desc' });
 
-      // const history = await DailyLog.find({
-      //   userId: userId,
-      //   date: { $gte: fromDate, $lte: toDate },
-      // }).sort({ date: 'asc' });
+      const history = await DailyLog.find({
+        userId: userId,
+        date: { $gte: fromDate, $lte: toDate },
+      }).sort({ date: 'asc' });
   
       res.status(200).json({ history });
     } catch (error) {
